@@ -48,12 +48,10 @@
                 <div class="col-12 offset-0 text-center">
                     <div class="info-form p-5">
                         <form action="" class="form-inline justify-content-center">
-                            <div class="form-group">
                               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                              <button class="btn btn-light btn-custom my-sm-0 " type="submit">
+                              <button onclick="searchFunc()" class="btn btn-light btn-custom my-sm-0 " type="submit" id="search">
                                 <i class="fas fa-search text-light"></i>
                               </button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -87,7 +85,34 @@
   <!-- Graph JS Links -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
   <script src="chart.js"></script>
-  
+  <!-- Search JS-->
+  <script>
+    function searchFunc() {
+      //Variable holds the user query that will be used in the request
+      const searchQuery = document.getElementById('search').value;
+      
+      var request = new XMLHttpRequest();
+
+      // requests
+      request.open("GET", searchQuery, true);
+
+      request.addEventListener("load", function() {
+        if (request.status >= 200 && request.status < 400) {
+          // It worked!
+          var data = JSON.parse(request.responseText);
+        }
+        else {
+          // Didn't work so we handle it here
+        }
+      });
+
+      request.addEventListener('error', function() {
+        //handle error
+      });
+
+      request.send();
+    }
+  </script>
 </body>
 </html>
 
