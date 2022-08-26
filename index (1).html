@@ -48,8 +48,8 @@
                 <div class="col-12 offset-0 text-center">
                     <div class="info-form p-5">
                         <form action="" class="form-inline justify-content-center">
-                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                              <button onclick="searchFunc()" class="btn btn-light btn-custom my-sm-0 " type="submit" id="search">
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="sQuery">
+                              <button class="btn btn-light btn-custom my-sm-0 " type="submit" id="search">
                                 <i class="fas fa-search text-light"></i>
                               </button>
                         </form>
@@ -79,7 +79,10 @@
         </div>
       </div>
     </div>
-      
+  </section>
+
+  <!-- results page-->
+  <section id="results">
   </section>
 
   <!-- Graph JS Links -->
@@ -87,30 +90,41 @@
   <script src="chart.js"></script>
   <!-- Search JS-->
   <script>
-    function searchFunc() {
-      //Variable holds the user query that will be used in the request
-      const searchQuery = document.getElementById('search').value;
-      
-      var request = new XMLHttpRequest();
+    //Variable holds the user query that will be used in the request
+    const searchQuery = document.getElementById('search');
+    searchQuery.addEventListener('click', searchFunc);
 
-      // requests
-      request.open("GET", searchQuery, true);
+    function searchFunc(event) {
+      
+      var queryValue = document.getElementById('sQuery').value;
+
+      //Don't know the api url
+      var apiBase = 'api link here';
+
+      if (queryValue === null || queryValue === '') return;
+
+      var sUrl = apiBase + queryValue;
+
+      performSearch(sUrl);
+    }
+
+    function performSearch(searchUrl){
+      var request = new XMLHttpRequest();      
 
       request.addEventListener("load", function() {
-        if (request.status >= 200 && request.status < 400) {
-          // It worked!
-          var data = JSON.parse(request.responseText);
-        }
+        var responseJSON = JSON.parse(this.response);
+
+        if (responseJSON.error) console.log('Query not found');
         else {
-          // Didn't work so we handle it here
+          //TODO put the results page here in html injected code
         }
+        document.getElementById('results').innerHTML = html;
       });
-
-      request.addEventListener('error', function() {
-        //handle error
-      });
-
+      request.open("GET", searchUrl);
       request.send();
+    }
+
+      
     }
   </script>
 </body>
