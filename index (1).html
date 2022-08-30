@@ -6,6 +6,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+  
   <style>input.form-control { width: 480px!important}</style>
   <style>
   .navbar-custom {background-color: rgb(134, 31, 65);}
@@ -67,13 +68,12 @@
         <div class="row">
           <div class="col-12 offset-0 text-center">
             <div class="p-5 form-inline justify-content-center">
-              <table>
-                <tr>
+              
+                
                   <td><canvas id="barChart"></canvas></td>
-                  <td><canvas id="lineChart"></canvas></td>
-                  <td><canvas id="radarChart"></canvas></td>
-                </tr>
-              </table>
+                  <td><canvas id="twoChart"></canvas></td>
+                  <td><div id="gauge"></div></td>
+              
             </div>
           </div>
         </div>
@@ -87,7 +87,11 @@
 
   <!-- Graph JS Links -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="chart.js"></script>
+  
   <!-- Search JS-->
   <script>
     //Variable holds the user query that will be used in the request
