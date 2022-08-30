@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>AIRC</title>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Contracts', 50]
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5,
+          min: 1
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 25, 75);
+          chart.draw(data, options);
+        }, 13000);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ["Element", "Density", { role: "style" } ],
+      ["2016", 449, "red"],
+      ["2017", 345, "blue"],
+      ["2018", 494, "red"],
+      ["2019", 755, "blue"],
+      ["2020", 451, "red"],
+      ["2021", 798, "blue"],
+      ["2022", 101, "red"]
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Total Contract Dollars, in Billions",
+      width: 600,
+      height: 400,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+    chart.draw(view, options);
+}
+</script>
+</head>
+<body>
+
+    <div id="chart_div" style="width: 400px; height: 120px;"></div>
+    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+
+</body>
+</html>
