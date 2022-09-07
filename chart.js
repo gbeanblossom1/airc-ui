@@ -142,7 +142,7 @@ $(function runNonFileData() {
     ]);
 
     var options = {
-      width: 800, height: 240,
+      wdith: 400, height: 240,
       redFrom: 90, redTo: 100,
       yellowFrom:75, yellowTo: 90,
       minorTicks: 5,
