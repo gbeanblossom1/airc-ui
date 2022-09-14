@@ -1,15 +1,59 @@
 var queryData;
-const csvData = Papa.parse("data/981_2022_08_30.csv", {
+const csvData = Papa.parse("data/New_Query_2022_08_30.csv", {
   download: true,
   header: true,
   dynamicTyping: true,
   complete: function(results) {
     console.log(results)
     queryData = results.data    
-    
+    var i = 0;
     var allData = {};
     Object.entries(queryData).forEach(([key, value]) => {
-      allData[value['contracting_agency_name']] = value['sum']/1000000000;
+      i++
+      // Catches Special cases for abreviating 
+      if(value['contracting_agency_name'] == "DEPT OF THE ARMY"){
+        if(allData['ARMY'] == null){
+          allData['ARMY'] = Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        } else {
+          allData['ARMY'] += Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        }   
+      } else if(value['contracting_agency_name'] == "DEPT OF THE NAVY"){
+        if(allData['NAVY'] == null){
+          allData['NAVY'] = Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        } else {
+          allData['NAVY'] += Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        }  
+      } else if(value['contracting_agency_name'] == "DEPT OF THE AIR FORCE"){
+        if(allData['AIR FORCE'] == null){
+          allData['AIR FORCE'] = Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        } else {
+          allData['AIR FORCE'] += Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        }  
+      } else if(value['contracting_agency_name'] == "U.S. SPECIAL OPERATIONS COMMAND (USSOCOM)"){
+       
+        if(allData['USSOCOM'] == null){
+          allData['USSOCOM'] = Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        } else {
+          allData['USSOCOM'] += Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+        }  
+        // Does general abriviations
+      } else {
+        console.log(i)
+        console.log(value['contracting_agency_name'])
+        try{
+          var abbrev = value['contracting_agency_name'].replace(/\([^\)]*\)/g).match(/\b([A-Z])/g).join('')
+          // console.log(allData[abbrev] == null)
+          if(allData[abbrev] == null){
+            allData[abbrev] = Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+          } else {
+            allData[abbrev] += Math.round((value['dollars_obligated'] + Number.EPSILON) * 100)/100;
+          }
+        } catch(TypeError) {
+          console.log('Done!')
+        }
+      }
+     
+      
       
     })
     var items = Object.keys(allData).map(function(key) {
@@ -19,8 +63,8 @@ const csvData = Papa.parse("data/981_2022_08_30.csv", {
     items.sort(function(first, second) {
       return second[1] - first[1];
     })
-    console.log(items.slice(0, 5))
-    items = items.slice(0, 5);
+    console.log(items.slice(0, 7))
+    items = items.slice(0, 7);
     var depts = [];
     var dollars = [];
     $.each(items, function(key, value) {
@@ -41,9 +85,9 @@ function main(depts, dollars)  {
       type: 'bar',
       data: {
           // once this is a treemap then use the depts array instead
-          labels: ['Army', 'Navy', 'Air Force', 'DLA', 'DHA'],
+          labels: depts,
           datasets: [{
-              label: 'Total Contract Dollars By Agency since 2016, in Billions',
+              label: 'Dollars Obligated',
               data : dollars,
               backgroundColor: [
                 'rgba(100, 38, 103, 0.5)',
