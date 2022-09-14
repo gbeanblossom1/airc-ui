@@ -77,10 +77,9 @@ const csvData = Papa.parse("data/New_Query_2022_08_30.csv", {
     main(depts, dollars);
   }
 });
-
+// add more data to this function by adding to the arguments
 function main(depts, dollars)  {
   var ctx1 = document.getElementById('barChart').getContext('2d');
-  //TODO turn this into a treemap
   const barChart = new Chart(ctx1, {
       type: 'bar',
       data: {
@@ -131,6 +130,14 @@ function main(depts, dollars)  {
       //   }
       // }]
   });
+
+  // Add the data to these bar graphs
+  var ctx3 = document.getElementById('vendorChart').getContext('2d');
+  const vendorChart = new Chart(ctx3, {})
+  var ctx4 = document.getElementById('pscChart').getContext('2d');
+  const pscChart = new Chart(ctx4, {})
+  var ctx5 = document.getElementById('programChart').getContext('2d');
+  const programChart = new Chart(ctx5, {})
 }
 $(function runNonFileData() {
   //Second bar chart
