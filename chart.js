@@ -1,5 +1,5 @@
 var queryData;
-const csvData = Papa.parse("data/New_Query_2022_08_30.csv", {
+const csvData1 = Papa.parse("data/New_Query_2022_08_30.csv", {
   download: true,
   header: true,
   dynamicTyping: true,
@@ -79,7 +79,7 @@ const csvData = Papa.parse("data/New_Query_2022_08_30.csv", {
 });
 // add more data to this function by adding to the arguments
 function main(depts, dollars)  {
-  var ctx1 = document.getElementById('barChart').getContext('2d');
+  var ctx1 = document.getElementById('oblBar').getContext('2d');
   const barChart = new Chart(ctx1, {
       type: 'bar',
       data: {
@@ -110,7 +110,8 @@ function main(depts, dollars)  {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: true
+              min: 0,
+              max: 120000000
             }
           }]
         }
@@ -132,12 +133,104 @@ function main(depts, dollars)  {
   });
 
   // Add the data to these bar graphs
-  var ctx3 = document.getElementById('vendorChart').getContext('2d');
-  const vendorChart = new Chart(ctx3, {})
-  var ctx4 = document.getElementById('pscChart').getContext('2d');
-  const pscChart = new Chart(ctx4, {})
-  var ctx5 = document.getElementById('programChart').getContext('2d');
-  const programChart = new Chart(ctx5, {})
+  var ctx3 = document.getElementById('vendorBar').getContext('2d');
+  const vendorBar = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: ['Amerisourcebergen', 'Cardinal Health', 'SAIC', 'O&M', 'Supplycore'],
+      datasets: [{
+        label: "Vendors by Unique Contracts",
+        data: [1544905, 1297912, 1144503, 692105, 353380],
+        backgroundColor: [
+          'rgba(100, 38, 103, 0.5)',
+          'rgba(206, 0, 88, 0.2)',
+          'rgba(237, 139, 0, 0.2)',
+          'rgba(247, 234, 72, 0.2)',
+          'rgba(80, 133, 144, 0.2)'
+        ],
+        borderColor: [
+          'rgba(100, 38, 103, 0.5)',
+          'rgba(206, 0, 88, 0.2)',
+          'rgba(237, 139, 0, 0.2)',
+          'rgba(247, 234, 72, 0.2)',
+          'rgba(80, 133, 144, 0.2)'
+        ],
+        borderwidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          ticks: {
+              display: false
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  })
+  var ctx4 = document.getElementById('naicsBar').getContext('2d');
+  const naicsBar = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels: ['MEDICAL, DENTAL, AND HOSPITAL EQUIPMENT AND SUPPLIES MERCHANT WHOLESALERS', 'PERISHABLE PREPARED FOOD MANUFACTURING',
+    "DRUGS AND DRUGGISTS' SUNDRIES MERCHANT WHOLESALERS", 'COMMERCIAL BAKERIES', 'MEDICINAL AND BOTANICAL MANUFACTURING'],
+      datasets: [{
+        label: 'Top NAICS vendors by number of contracts',
+        data: [3095624, 1536980, 1072686, 1050832, 943020],
+        backgroundColor: [
+          'rgba(100, 38, 103, 0.5)',
+          'rgba(206, 0, 88, 0.2)',
+          'rgba(237, 139, 0, 0.2)',
+          'rgba(247, 234, 72, 0.2)',
+          'rgba(80, 133, 144, 0.2)'
+        ],
+        borderColor: [
+          'rgba(100, 38, 103, 0.5)',
+          'rgba(206, 0, 88, 0.2)',
+          'rgba(237, 139, 0, 0.2)',
+          'rgba(247, 234, 72, 0.2)',
+          'rgba(80, 133, 144, 0.2)'
+        ],
+        borderwidth: 1
+      }]
+    },
+    options: {
+      // maintainAspectRatio: false,
+      scales: {
+        xAxes: [{
+          ticks: {
+              display: false
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      responsive: true,
+           
+    }
+  })
+  var ctx5 = document.getElementById('darpaLine').getContext('2d');
+  var ctx6 = document.getElementById('vendorTable').getContext('2d');
+  var ctx7 = document.getElementById('naicsTable').getContext('2d');
+  var ctx8 = document.getElementById('commercialPie').getContext('2d');
+  const darpaLine = new Chart(ctx5, {})
+  const vendorTable = new Chart(ctx6, {})
+  const naicsTable = new Chart(ctx7, {})
+  const commercialPie = new Chart(ctx8, {})
 }
 $(function runNonFileData() {
   //Second bar chart

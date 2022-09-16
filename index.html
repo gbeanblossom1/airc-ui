@@ -72,14 +72,16 @@
   <section id="graphs">
       <div id="container" class="container">
         <div class='row'>
-          <div class="column mx-auto" id="gauge"></div>
+          <div class="column mx-auto" id="gauge">
+            <canvas id="vendorTable"></canvas> <!-- Table to hold SEI number, vendor, PIIDs, amount of money obligated, time of last obligation-->
+            <canvas id="naicsTable"></canvas> <!-- Top 25 NAICS descriptions-->
+            <canvas id="commercialPie"></canvas> <!-- Commercial items vs not-->
+          </div>
           <div class="column p-5 form-inline justify-content-end"> 
-            <canvas id="barChart"></canvas>
-            <canvas id="twoChart"></canvas>
-            <canvas id="vendorChart"></canvas>
-            <cancas id="pscChart"></cancas>
-            <canvas id="programChart"></canvas>
-            
+            <canvas id="vendorBar"></canvas> <!-- Top 5 SEI numbers (Displayed as vendors) by number of unique PIIDs-->
+            <canvas id="naicsBar"></canvas> <!-- Top 5 unique PIIDs with NAICS descriptions-->     
+            <canvas id="oblBar"></canvas> <!-- Dollars Obligated by Organization-->
+            <canvas id="darpaLine"></canvas> <!-- Dollars Obligated by Fiscal Year-->
           </div>
         </div>
         <div class="flex-column-reverse">
